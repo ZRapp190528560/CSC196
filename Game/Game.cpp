@@ -9,14 +9,12 @@
 #include "Shape.h"
 #include "pch.h"
 
-const size_t NUM_POINTS = 40;
-float speed = 200.0f;
+float speed = 300.0f;
 
-std::vector<AZ::Vector2> points = { { 0, -3 }, { 3, 3 }, { 0, 1 }, { -3, 3 }, { 0, -3 } };
-AZ::Color color { 1, 0.55f, 0.73f };
 AZ::Shape shape;
-
 AZ::Transform transform{ {400, 300}, 4, 0 };
+
+float t{ 0 };
 
 float frametime;
 float roundtime{ 0 };
@@ -30,12 +28,14 @@ bool Update(float dt) {
 	deltaTime = time - prevTime;
 	prevTime = time;
 
+	t = t + (dt) * 5.0f;
+
 	frametime = dt;
 	roundtime += dt;
 
-	if (roundtime >= 5.0f) { gameOver = true; }
+	//if (roundtime >= 5.0f) { gameOver = true; }
 
-	if (gameOver) { dt = dt * 0.25f; }
+	//if (gameOver) { dt = dt * 0.25f; }
 
 	bool quit = Core::Input::IsPressed(Core::Input::KEY_ESCAPE);
 
@@ -48,8 +48,10 @@ bool Update(float dt) {
 
 	//position += direction.normalized() * speed;
 
-	if (Core::Input::IsPressed('A')) { transform.angle = transform.angle - dt * 5; }
-	if (Core::Input::IsPressed('D')) { transform.angle = transform.angle + dt * 5; }
+	if (Core::Input::IsPressed('A')) { transform.angle = transform.angle - (dt * AZ::Math::THREE_HALF_PI); }
+	if (Core::Input::IsPressed('D')) { transform.angle = transform.angle + (dt * AZ::Math::THREE_HALF_PI); }
+
+	transform.position = AZ::Math::Clamp(transform.position, { 0,0 }, { 800,600 });
 
 	/*if (Core::Input::IsPressed('A')) { position += AZ::Vector2{ -1.0f, 0.0f } * speed * dt; }
 	if (Core::Input::IsPressed('D')) { position += AZ::Vector2{ 1.0f, 0.0f } * speed * dt; }
@@ -73,6 +75,14 @@ void Draw(Core::Graphics& graphics){
 	graphics.DrawString(10, 10, std::to_string(frametime).c_str());
 	graphics.DrawString(10, 20, std::to_string(1.0f/frametime).c_str());
 	graphics.DrawString(10, 30, std::to_string(deltaTime).c_str());
+	
+	float v = (std::sin(t) + 1dddd) * 0.5f;
+
+	AZ::Color c = AZ::Math::Lerp(AZ::Color{ 1, 1, 0 }, AZ::Color{ 1, 0, 1 }, v);
+	graphics.SetColor(c);
+
+	AZ::Vector2 pos = AZ::Math::Lerp(AZ::Vector2{ 400, 200 }, AZ::Vector2{ 400, 100 }, v);
+	graphics.DrawString(pos.x, pos.y, "Never gonna give you up");
 
 	if (gameOver) graphics.DrawString(400, 300, "Game Over");
 

@@ -43,15 +43,15 @@ namespace AZ {
 			this->b = b;
 		}
 
-		/*Color operator + (const Color& c) const { r + c.r; g + c.g; b + c.b; }
-		Color operator - (const Color& c) const { r - c.r; g - c.g; b - c.b; }
-		Color operator * (const Color& c) const { r * c.r; g * c.g; b * c.b; }
-		Color operator / (const Color& c) const { r / c.r; g / c.g; b / c.b; }
+		Color operator + (const Color& c) const { return {r + c.r, g + c.g, b + c.b }; }
+		Color operator - (const Color& c) const { return { r - c.r, g - c.g, b - c.b }; }
+		Color operator * (const Color& c) const { return { r * c.r, g * c.g, b * c.b }; }
+		Color operator / (const Color& c) const { return { r / c.r, g / c.g, b / c.b }; }
 
-		Color operator + (float s) const { r + s; g + s; b + s; }
-		Color operator - (float s) const { r - s; g - s; b - s; }
-		Color operator * (float s) const { r * s; g * s; b * s; }
-		Color operator / (float s) const { r / s; g / s; b / s; }*/
+		Color operator + (float s) const { return { r + s, g + s, b + s }; }
+		Color operator - (float s) const { return { r - s, g - s, b - s }; }
+		Color operator * (float s) const { return { r * s, g * s, b * s }; }
+		Color operator / (float s) const { return { r / s, g / s, b / s }; }
 
 		Color& operator += (const Color& c) { r += c.r; g += c.g; b += c.b; return *this; }
 		Color& operator -= (const Color& c) { r -= c.r; g -= c.g; b -= c.b; return *this; }

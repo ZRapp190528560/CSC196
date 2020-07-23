@@ -1,6 +1,14 @@
 #include "pch.h"
 #include "Color.h"
 
+const AZ::Color AZ::Color::red{ 1, 0, 0 };
+const AZ::Color AZ::Color::blue{ 0, 0, 1 };
+const AZ::Color AZ::Color::green{ 0, 1, 0 };
+const AZ::Color AZ::Color::yellow{ 1, 1, 0 };
+const AZ::Color AZ::Color::magenta{ 1, 0, 1 };
+const AZ::Color AZ::Color::cyan{ 0, 1, 1 };
+const AZ::Color AZ::Color::white{ 1, 1, 1 };
+
 namespace AZ {
 	std::istream& operator >> (std::istream& stream, Color& c) {
 		std::string line;
@@ -21,4 +29,5 @@ namespace AZ {
 
 		return stream;
 	}
+
 }

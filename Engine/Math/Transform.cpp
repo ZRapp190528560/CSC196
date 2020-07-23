@@ -1,13 +1,31 @@
 #include "pch.h"
+#include <string>
 #include "Transform.h"
 
 
 namespace AZ {
 	std::istream& AZ::operator>>(std::istream& stream, Transform& t){
 		stream >> t.position;
-		stream >> t.scale;
-		stream >> t.angle;
+
+		std::string line;
+		std::getline(stream, line);
+		t.scale = stof(line);
+
+		std::getline(stream, line);
+		t.angle = stof(line);
 
 		return stream;                
+	}
+	void Transform::update(){
+		matrix33 mxScale;
+		mxScale.scale(scale);
+
+		matrix33 mxRotate;
+		mxRotate.rotate(angle);
+
+		matrix33 mxTranslate;
+		mxTranslate.translate(position);
+
+		matrix = mxScale * mxRotate * mxTranslate;
 	}
 }

@@ -18,9 +18,11 @@ namespace AZ {
 
 		void setColor(Color& color) { m_color = color; }
 		const Color& getColor() const { return m_color; }
+		float getRadius() { return radius; }
 
 	private:
 		std::vector<Vector2> m_points;
 		Color m_color;
+		float radius;
 	};
 }

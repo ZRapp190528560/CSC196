@@ -68,6 +68,14 @@ namespace AZ {
 		COLORREF pack888() const;
 
 		operator COLORREF() const { return pack888(); }
+
+		static const Color red;
+		static const Color blue;
+		static const Color green;
+		static const Color yellow;
+		static const Color magenta;
+		static const Color cyan;
+		static const Color white;
 	};
 
 	inline COLORREF Color::pack888() const {
